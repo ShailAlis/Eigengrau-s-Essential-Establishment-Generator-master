@@ -1,0 +1,3 @@
+:: NPCLifeEvents
+<details><summary>Life Events</summary><div class='descriptive'>Well, I certainly have a tale or two...
+\<<print setup.getLifeEvents($currentNPC)>></div></details>

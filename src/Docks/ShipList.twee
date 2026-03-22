@@ -1,0 +1,37 @@
+:: ShipList
+<<liveblock>><<nobr>>
+<div id="ships">
+  <div class='classTable'>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th class="interactive-only">Delete</th>
+      </tr>
+      <<for _key, _ship range $building.ships>>
+        <<capture _key, _ship>>
+          <tr>
+            <td>
+            <<link "_ship.name" ShipProfile>>
+              <<set $currentPassage to {shipKey: _key}>>
+            <</link>>
+            </td>
+            <td>
+              <<print _ship.type.toUpperFirst()>>
+            </td>
+            <td class="interactive-only">
+            <<link "x">>
+              <<set _deleted to $building.ships[_ship.key]>>
+              <<run setup.deleteNPC(_deleted.captain)>><<if def $building.ships[_ship.key].crew>><<run setup.deleteNPC($building.ships[_ship.key].crew)>><</if>>
+              <<run delete $town.buildings[$currentPassage.index].ships[_ship.key]>>
+              <<update>>
+              <<notify 5000>>Deleted _deleted.name<</notify>>
+            <</link>>
+            </td>
+          </tr>
+        <</capture>>
+      <</for>>
+    </table>
+  </div>
+</div>
+<</nobr>><</liveblock>>

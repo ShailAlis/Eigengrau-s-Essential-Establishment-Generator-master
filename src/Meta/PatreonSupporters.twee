@@ -1,0 +1,7 @@
+:: PatreonSupporters [nobr]
+<h2>Patreon Supporters</h2>
+Special thanks to my [[Patreon|https://www.patreon.com/join/eigengrausgenerator?]] supporters!
+<<if setup.supporters>>
+<ul style="columns:2; -webkit-columns:2; -moz-columns:2;">
+<<for _index, _item range setup.printSupporters()>><li>_item</li><</for>>
+</ul><</if>>

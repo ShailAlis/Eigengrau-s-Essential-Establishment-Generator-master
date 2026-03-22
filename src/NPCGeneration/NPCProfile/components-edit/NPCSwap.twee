@@ -1,0 +1,28 @@
+:: NPCSwap [nobr]
+<label name="swap NPC" for="listbox-swapnpc">
+  <<listbox "_swapNpc" autoselect>>
+    <<optionsfrom Object.values($npcs).map(el => el.name)>>
+    <<optionsfrom lib.patreonCharacters>>
+  <</listbox>></label> -- 
+  <<button "Swap NPC" NPCProfileEdit>>
+    <<run lib.logger.openGroup('Swapping NPC!')>>
+    <<set _npc1 to Object.assign($npcs[$currentPassage.key], {
+      isThrowaway: false, keyIsAlreadyDefined: true
+    })>>
+    <<set _npc2 to Object.assign(lib.findInContainer($npcs)('name', _swapNpc), {
+      isThrowaway: false, keyIsAlreadyDefined: true
+    })>>
+    <<set _temp to Object.assign($npcs[$currentPassage.key], {
+      isThrowaway: false, keyIsAlreadyDefined: true
+    })>>
+    <<run lib.logger.info(_npc1, _npc2)>>
+    <<run lib.logger.info(_temp)>>
+    <<run lib.swapNPCs($town, $npcs, $currentPassage.key, _npc2.key)>>
+    <<set $npcs[_npc2.key] to setup.createNPC($town, _temp)>>
+    <<set $npcs[$currentPassage.key] to setup.createNPC($town, _npc2)>>
+    <<run lib.logger.info('Done!')>>
+    <<run lib.logger.info(_npc1, _npc2)>>
+    <<run lib.logger.info(_temp)>>
+    <<run lib.logger.closeGroup()>>
+    <<include "NPCSaveEdits">>
+  <</button>>

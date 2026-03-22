@@ -1,0 +1,46 @@
+{
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "editor.formatOnSave": "explicit",
+    "source.fixAll": "explicit"
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "src/init.js": true,
+    "gh-pages/**": true,
+    "/src/Tools/Exports/example.json": true,
+    "/yarn.lock": true
+  },
+  "prettier.semi": false,
+  "highlight.maxMatches": 250,
+  "highlight.regexes": {
+    // Match things like $object.deep.value.
+    "(\\$\\w+(\\.\\w+)*)": {
+      "filterFileRegex": ".*\\.(js|json)$",
+      "decorations": [{ "color": "rgba(120, 180, 255)" }]
+    },
+    // Match things like <<print $name>>.
+    // Respects line breaks.
+    "(<<[\\s\\S]+?>>)": {
+      "filterFileRegex": ".*\\.(js|json)$",
+      "decorations": [{ "color": "rgb(255, 200, 100)" }]
+    }
+  },
+  "files.associations": {
+    "*.twee": "twee3"
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "typescript.preferences.quoteStyle": "single",
+  "twee3LanguageTools.storyformat.current": "sugarcube-2",
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  }
+}

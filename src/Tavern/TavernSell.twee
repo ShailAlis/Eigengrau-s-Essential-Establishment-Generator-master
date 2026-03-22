@@ -1,0 +1,32 @@
+:: TavernSell [tavern]
+<<nobr>>
+<details><summary>Menu</summary><table>
+	<<if $building.roll.wealth > 60 && $building.roll.roughness < 30 or $building.roll.wealth > 60 && $associatedNPC.race === "elf">>
+			<<set _dietary to ["veg"]>>
+		<<elseif $building.roll.wealth > 60 && $building.roll.roughness > 80 or $building.roll.wealth > 60 && $associatedNPC.race === "half-orc">>
+			<<set _dietary to ["carni"]>>
+		<<else>>
+			<<set _dietary to ["omni", "veg", "carni"]>>
+	<</if>>
+	<<switch $town.type>>
+		<<case "city">>
+			<<set _availability to 4>>
+		<<case "town">>
+			<<set _availability to 3>>
+		<<case "village">>
+			<<set _availability to 2>>
+		<<case "hamlet">>
+			<<set _availability to 1>>
+		<<default>>
+			<<set _availability to 3>>
+	<</switch>>
+	<tr>
+		<th>Dish</th>
+		<th>Cost</th>
+	</tr>
+	<<for _i, _item range lib.inventory.filter(function (item) { return item.availability <= _availability && item.availabilityLocation.includes("tavern") && _dietary.includes(item.dietary); })>><tr><td>_item.name</td>
+<td><<money _item.cost $building>></td></tr>
+	<</for>>
+</table>
+</details>
+<</nobr>>

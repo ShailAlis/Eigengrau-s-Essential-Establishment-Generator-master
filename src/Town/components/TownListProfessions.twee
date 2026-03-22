@@ -1,0 +1,27 @@
+:: TownListProfessions [nobr]
+<<set _count to 0>>
+<table class='show-on-print'>
+  <tr>
+    <th>Profession</th>
+    <th>Number</th>
+    <th>Percentage</th>
+    <th>NPC</th>
+  </tr>
+  <<set $town.professions to lib.fetchProfessions($town)>>
+  <<for _name, _profession range $town.professions>><<nobr>>
+  <<capture _name, _profession>>
+  <<set _count += ((_profession.population / $town.population) * 100)>>
+  <<set _article to lib.articles.output(_name)>>
+  <<set _npcs to lib.filterNpcByProfession($npcs, _name)>>
+  <<set _nameTitle to lib.toTitleCase(_name)>>
+  <tr><td><<print lib.createTippyFull(lib.professions[_name].description.toUpperFirst(), _nameTitle)>></td>
+<td>_profession.population</td>
+<td><<print ((_profession.population / $town.population) * 100).toFixed(2)>></td>
+<td><<if _npcs.length === 1>>
+      <<profile _npcs[0]>>
+      <<elseif _npcs.length > 1>>
+        <<for _i, _npc range _npcs>>
+          <<profile _npc>><</for>>
+      <<else>><span class="interactive-only hide-on-print"><<link "Create _article" $currentPassage.passageName>><<set $currentPassage to setup.createNPC($town, { profession: _name, isThrowaway: true })>><</link>></span>
+    <</if>></td></tr><</capture>><</nobr>><</for>>
+</table>Total: <<print _count.toFixed(2)>>% of the total population.

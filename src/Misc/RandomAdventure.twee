@@ -1,0 +1,11 @@
+:: RandomAdventure
+<<nobr>><<link "<h4>Roll up an adventure!</h4>">><<set $adventure to setup.adventure.create($town)>><</link>>
+<<if $adventure>>
+<span id="adventure">
+<blockquote>
+  <h3>Another campaign</h3>
+  The players must $adventure.goal Their patron, a <<print setup.profile($adventure.patron, $adventure.patronType)>>, has also requested that they $adventure.sidequest Acting against the party's interests is $adventure.villainType, who will accomplish $adventure.villain.hisher goal $adventure.villainActions. The adventurers are aided by a <<print setup.profile($adventure.ally, $adventure.allyType)>>. They do this on the backdrop of <<print lib.articles.output($adventure.backdrop)>>.
+  $adventure.introduction $adventure.climax $adventure.twist
+  </blockquote>
+</span>
+<</if>><</nobr>>

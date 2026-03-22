@@ -1,0 +1,34 @@
+:: AlchemistSell
+<<linkreplace "<h4>Buy something</h4>">><h6>$building.name's Potions and Wares</h6><<nobr>>
+<div class="descriptive">
+<<switch $town.type>>
+  <<case "city">>
+  $associatedNPC.name smiles, and says "You're looking to buy something? Name it, here at $building.name, we stock everything the average adventurer could possibly need!
+  <<case "town">>
+  $associatedNPC.name says "Well, what is it you need? We specialise in <<print ["healing", "combat", "regenerative", "medicinal", "the more... poisonous", "healing", "minor", "major"].random()>> potions, but can do just about anything for you.
+  <<case "village">>
+  $associatedNPC.name says "Sure, what are you after? <<print lib.alchemistData.ingredients.random().toUpperFirst()>>? Or perhaps a potion?
+  <<case "hamlet">>
+  $associatedNPC.name smiles, and says "What are you after? We can do just about anything you could possibly need; salts, herbs, <<print lib.alchemistData.ingredients.random()>>, <<print lib.alchemistData.ingredients.random()>>, <<print lib.alchemistData.ingredients.random()>>, you name it!
+<</switch>><<print lib.closestMatch(lib.alchemistData.get.priceTalk($building), "priceTalk", "priceModifier", "wealth", $building.priceModifier, $building.roll.wealth)>>"</div>
+<<switch $town.type>>
+  <<case "city">>
+    <<set _availability to 4>>
+  <<case "town">>
+    <<set _availability to 3>>
+  <<case "village">>
+    <<set _availability to 2>>
+  <<case "hamlet">>
+    <<set _availability to 1>>
+  <<default>>
+    <<set _availability to 3>>
+<</switch>>
+<<set _selling to {
+    category: {
+      'adventuring gear': 'adventuring gear',
+      'tools': 'tools',
+      'consumables': 'consumables'
+    }
+}>>
+<<shop $building, _selling>>
+<</nobr>><</linkreplace>>

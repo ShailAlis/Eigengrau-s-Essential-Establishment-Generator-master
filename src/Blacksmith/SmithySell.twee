@@ -1,0 +1,26 @@
+:: SmithySell
+<<linkappend "<h4>Buy something</h4>" t8n>><<nobr>><div class="descriptive">
+<<print lib.getSellingTalk($town, $building, $associatedNPC)>></div>
+
+<<switch $town.type>>
+  <<case "city">>
+    <<set _availability to 4>>
+  <<case "town">>
+    <<set _availability to 3>>
+  <<case "village">>
+    <<set _availability to 2>>
+  <<case "hamlet">>
+    <<set _availability to 1>>
+  <<default>>
+    <<set _availability to 3>>
+<</switch>>
+<<set _selling to {
+    category: {
+      weapon: 'weapons',
+      armour: 'armour',
+      'adventuring gear': 'adventuring gear',
+      'tools': 'tools'
+    }
+}>>
+<<shop $building, _selling>>
+<</nobr>><</linkappend>>

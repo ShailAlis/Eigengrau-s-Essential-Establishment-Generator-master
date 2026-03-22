@@ -1,0 +1,49 @@
+
+:: StoryInit
+<<run lib.logger.info("Hello world!")>>
+<<run setup.urlSeed()>>
+<<run setup.init()>>
+
+<<set setup.data to {
+	versionNumber: "2.9",
+	badges: {
+    fun: lib.createFunBadge(),
+		github: lib.createBadge([
+			lib.badges.stats.githubForks, 
+			lib.badges.stats.githubStars, 
+			lib.badges.stats.monthlyActivity,
+			lib.badges.stats.timeSinceLastCommit,
+			lib.badges.stats.linesOfCode].random(), 
+			{imgArgs: 'style=width:100%', link: 'https://github.com/ryceg/Eigengrau-s-Essential-Establishment-Generator/'
+		})
+	}
+}>>
+
+<<if !State.metadata.has('customImages')>>
+<<set $customImagesData to {
+'deity': {}, 
+'buildingType': {}, 
+'factionType': {}
+}>>
+<<run State.metadata.set('customImages', $customImagesData)>>
+<</if>>
+
+<<set Config.history.maxStates to 15>>
+<<set $npcs to {}>>
+<<set $toolbox to {}>>
+<<set $history to []>>
+
+<<set $town to setup.createTown()>>
+<<if recall("neverShowWelcome") is true && recall("showBiomeGeneration") is true>>
+		<<set Config.passages.start = "BiomeGeneration">>
+	<<else>>
+		<<set Config.passages.start = "Start">>
+<</if>>
+<<set _t to lib.books.normal>><<set $_ to ''>>
+<<for _i = 0; _i < 16; _i++>><<set State.variables._ += _t[_i][7] !== ' ' ? _t[_i][7] : '$'>><</for>>
+<<if lib.isLocalCopy()>><<set settings.disableAnalytics to true>><<run memorize('patreonPass', $_)>><<notify 10000>>Patreon features are unlocked since you're running locally.<</notify>>
+<<elseif location.hash.includes('npt')>><<run memorize('patreonPass', $_)>><<set settings.hideAds to true>>
+<</if>>
+
+<<run lib.shareMenu()>>
+<<run setup.navigateToObj()>>

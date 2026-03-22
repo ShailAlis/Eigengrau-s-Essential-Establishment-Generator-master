@@ -1,0 +1,18 @@
+:: StoryAuthor
+Created by <span class='tip .sidebarAds' data-tippy-content="Please send complaints to 5 Adelaide Ave, Deakin ACT 2600"><a style='color:var(--text-normal)' href="https://reddit.com/u/rcgy">/u/rcgy</a></span>
+<span class="version">v[[setup.data.versionNumber|https://github.com/ryceg/Eigengrau-s-Essential-Establishment-Generator/blob/master/CHANGELOG.md]]</span>
+<<nobr>><<if settings.hideAds !== true>>
+<span class="tip sidebarAds" data-tippy-content="Thank you for your continued support!" id="patreon">
+    <<print lib.createBadge(lib.badges.stats.patreonSupporters, {imgArgs: 'style=width:100%'})>>
+    /* , imgArgs: "style='width:100%'" */
+</span>
+<span class="tip sidebarAds" data-tippy-content="Come join our community!" id='discord'>
+    <<print lib.createBadge(lib.badges.stats.discordOnline, {imgArgs: 'style=width:100%'})>>
+</span>
+<span class="tip sidebarAds" data-tippy-content="Check out the repository!" id='github'>
+    <<print setup.data.badges.github>>
+</span>
+
+<span id="fun-container"><<print setup.data.badges.fun>></span>
+<<run tippy('.sidebarAds')>>
+<</if>><</nobr>>

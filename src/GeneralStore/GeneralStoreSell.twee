@@ -1,0 +1,36 @@
+:: GeneralStoreSell
+<<linkappend "<h4>Buy something</h4>" t8n>><<nobr>><div class="descriptive"><<run lib.logger.info("BUILDING:")>><<run lib.logger.info($building)>>
+<<switch $town.type>>
+  <<case "city">>
+  $associatedNPC.name smiles, and says "You're looking to buy something? Name it, here at $building.name, we stock everything the average man could possibly need!
+  <<case "town">>
+  $associatedNPC.name says "Well, what is it you need? We can do just about anything for you.
+  <<case "village">>
+  $associatedNPC.name says "Sure, what are you after? <<print $associatedNPC.mundane.random().toUpperFirst()>>?
+  <<case "hamlet">>
+  $associatedNPC.name smiles, and says "What are you after? We can do just about anything you could possibly need; <<print $associatedNPC.mundane.random()>>, <<print $associatedNPC.mundane.random()>>, <<print $associatedNPC.mundane.random()>>, you name it!
+  <<default>>
+  $associatedNPC.name says "Well, what is it you need? We can do just about anything for you.
+<</switch>><<print lib.closestMatch(lib.generalStore.get.priceTalk($building), 'priceTalk', 'priceModifier', 'wealth', '$building.priceModifier', '$building.roll.wealth')>>"</div>
+<<switch $town.type>>
+  <<case "city">>
+    <<set _availability to 4>>
+  <<case "town">>
+    <<set _availability to 3>>
+  <<case "village">>
+    <<set _availability to 2>>
+  <<case "hamlet">>
+    <<set _availability to 1>>
+  <<default>>
+    <<set _availability to 3>>
+<</switch>>
+<<set _selling to {
+    category: {
+      weapon: 'weapons',
+      armour: 'armour',
+      'adventuring gear': 'adventuring gear',
+      'tools': 'tools'
+    }
+}>>
+<<shop $building, _selling>>
+<</nobr>><</linkappend>>
